@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+p "What is your email?"
+p "Would you like to sign up for the S.O fan club?"
+p "----------"
+got_email = gets.chomp
+user = User.find_by(email: got_email)
+p user.email
+
+p "Would you like to visit or create a URL?"
+response = gets.chomp
+if response = "create"
+    p "What URL would you like to shorten?"
+    long_url = gets.chomp
+    ShortenedUrl.create!(user, long_url)
+    short_url = ShortenedUrl.last
+    Visit.record_visit!(user, short_url)
+else
+    p "Too bad."
+end
